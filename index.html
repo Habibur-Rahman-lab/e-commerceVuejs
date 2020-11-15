@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="icon" href="favicon.png">
+    <title>eCommerce by VueJs</title>
+    <link rel="stylesheet" href="assets/css/customizer.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
+  <body>
+    <div id="app">
+    <!------nav--------->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="#" @click="isShowingCart=false">
+              <span class="logo">
+                  <img src="assets/img/logo.png" alt="logo" width="100px" height="50px">
+              </span>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="text-right pull-right cart-info ml-auto">
+            <span class="stats"> {{cart.items.length}} items in cart, totalling ${{cartTotal}}</span>
+            <button @click="isShowingCart=true" class="btn btn-outline-success my-2 my-sm-0" type="submit">View Cart</button>
+            </div>
+        </div>
+    </nav>
+    
+    <!----app------->
+
+    <div class="container">
+        <div v-if="!isShowingCart" id="products" class="row">
+            <div v-for="product in products" class="col-sm-4 item">
+                <div class="thumbnail">
+                    <img class="group list-group-image" src="assets/img/product/all.jpg" alt="product" width="100%">
+                    <div class="caption">
+                        <h4 class="group inner list-group-item-heading">
+                            {{product.name}}
+                        </h4>
+                        <p class="group inner list-group-item-text">
+                            {{product.description}}
+                        </p>
+                        <br>
+                        <div class="row flex flex-row align-center">
+                            <div class="col-sm-4">
+                                <p class="lead">
+                                    ${{product.price}}
+                                </p>
+                            </div>
+                            <div class="col-sm-8 flex flex-row align-center justify-right">
+                                <div :class="{few: product.inStock <10, none:product.inStock==0}" class="number-in-stock">
+                                   {{product.inStock}} in Stock
+                                </div>
+                                <button @click="addProductToCart(product)" :disabled="product.inStock==0" class="btn btn-success">Add to card</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div v-else="isShowingCart" class="card mb-3" style="max-width: 100%;">
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img src="assets/img/product/shirt.jpg" class="card-img" alt="shirt" height="100%">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title">100% Cotton</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+            <table v-if="cart.items.length > 0" class="table table-striped">
+              <thead>
+                  <th>Product</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+              </thead>
+              <tbody>
+                  <tr v-for="item in cart.items">
+                      <td>{{item.product.name}}</td>
+                      <td>{{item.quantity}} &nbsp;
+                        <button :disabled="item.product.inStock==0" @click="inCreaseCartQuantity(item)" class="btn btn-success">+</button>
+                        <button @click="deCreaseCartQuantity(item)" class="btn btn-danger">-</button>
+                     </td>
+                      
+                      <td>${{item.product.price}}</td>
+                  </tr>
+                  <tr>
+                      <td class="text-right" colspan="2">
+                         <strong> Subtotal</strong>
+                      </td>
+                      <td>${{cartTotal}}</td>
+                  </tr>
+                  <tr>
+                      <td class="text-right" colspan="2">
+                          <strong>Taxes</strong>
+                      </td>
+                      <td>${{taxAmount}}</td>
+                  </tr>
+                  <tr>
+                      <td class="text-right" colspan="2">
+                          <strong>Grand Total</strong>
+                      </td>
+                      <td>${{cartTotal + taxAmount}}</td>
+                  </tr>
+                  <tr>
+                      <td colspan="2"></td>
+                      <td>
+                          <button @click="checkOut" class="btn btn-success">Checkout</button>
+                      </td>
+                  </tr>
+              </tbody>
+              </table>
+          
+          </div>
+        </div> <!------else-------->
+    </div>
+
+    </div>
+    
+    <!-----footer------->
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 text-center bg-light">
+                    <footer>
+                        <p>CopyRighthabibdeveloper1@gmail.com 10-07-2020</p>
+                    </footer>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+     <script src="assets/js/app.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="assets/js/ch02-inventory.js"></script>
+    <script src="assets/js/zoom.js"></script>
+  </body>
+</html>

@@ -1,0 +1,116 @@
+.customizer {
+  zoom: 1;
+  margin-top: 1em;
+}
+
+.customizer::after {
+  content: "\0020";
+  display: block;
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+.product-image {
+  /*animation-duration: 0.5s;*/
+}
+
+.product-caption {
+  text-align: center;
+  border-top: 1px solid #ddd;
+  margin: 0 auto;
+  padding: 0.5em 0 0;
+  width: 50%;
+
+  font-size: 85%;
+}
+
+.product-image img {
+  max-width: 100%;
+  transition: transform 0.5s;
+}
+
+.product-size--7 img {
+  transform: scale(0.5);
+}
+
+.product-size--7_5 img {
+  transform: scale(0.55);
+}
+
+.product-size--8 img {
+  transform: scale(0.6);
+}
+
+.product-size--8_5 img {
+  transform: scale(0.65);
+}
+
+.product-size--9 img {
+  transform: scale(0.7);
+}
+
+.product-size--9_5 img {
+  transform: scale(0.75);
+}
+
+.product-size--10_5 img {
+  transform: scale(0.8);
+}
+
+.product-size--11 img {
+  transform: scale(0.85);
+}
+
+.product-size--11_5 img {
+  transform: scale(0.9);
+}
+
+.product-size--12 img {
+  transform: scale(0.95);
+}
+
+.product-size--12_5 img {
+  transform: scale(1);
+}
+
+.field-group {
+  width: 100%;
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+
+.field-group:last-child {
+  margin-bottom: 0;
+}
+
+.field-group label {
+  font-size: 85%;
+  margin-right: 0.5em;
+}
+
+.field-group select {
+  text-transform: capitalize;
+}
+
+@media screen and (min-width: 40em) {
+  .customizer {
+    max-width: 50em;
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+  }
+
+  .product-image {
+    max-width: 66%;
+  }
+
+  .selectors,
+  .selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
